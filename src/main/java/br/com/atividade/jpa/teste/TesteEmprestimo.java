@@ -66,12 +66,6 @@ public class TesteEmprestimo {
         }
 
 		em.close();
-
-        // Aluno aluno = alunoDAO.findById(1l);
-        // System.out.println(aluno.getNome());
-
-        // Publicacao publicacao = publicacaoDAO.findById(1l);
-        // System.out.println(publicacao.getTitulo());
     }
 
 }
