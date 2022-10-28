@@ -1,8 +1,9 @@
 package br.com.atividade.jpa.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,22 +18,24 @@ import javax.persistence.Table;
 public class Emprestimo {
     
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="matriculaAluno")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="matricula_aluno")
     private Aluno matriculaAluno;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="codigoPub")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cod_publicacao")
     private Publicacao codigoPub;
 
+    @Column(name = "data_emprestimo")
     private Date dataEmprestimo;
 
+    @Column(name = "data_devolucao")
     private Date dataDevolucao;
     
     public Emprestimo() {}
 
-    public Emprestimo(Aluno matriculaAluno, Publicacao codigoPub, Date dataDevolucao, Date dataEmprestimo) {
+    public Emprestimo(Aluno matriculaAluno, Publicacao codigoPub, Date dataEmprestimo, Date dataDevolucao) {
         this.matriculaAluno = matriculaAluno;
         this.codigoPub = codigoPub;
         this.dataDevolucao = dataDevolucao;
@@ -69,6 +72,13 @@ public class Emprestimo {
 
     public void setDataEmprestimo(Date dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return "Emprestimo\nmatriculaAluno = " + matriculaAluno.getMatriculaAluno() + ",\ncodigoPub = " + codigoPub.getCodigoPub() + ",\ndataEmprestimo = "
+                + sdf.format(dataEmprestimo) + ",\ndataDevolucao = " + sdf.format(dataDevolucao);
     }
     
 }

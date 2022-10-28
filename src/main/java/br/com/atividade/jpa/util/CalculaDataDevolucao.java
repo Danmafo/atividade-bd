@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class CalculaDataDevolucao {
 
-    public static Date calculaDataDevolucao(Date dataEmprestimo) {
+    public static Date calcular(Date dataEmprestimo) {
         Calendar c = Calendar.getInstance();
         c.setTime(dataEmprestimo);
         c.add(Calendar.DATE, 15);

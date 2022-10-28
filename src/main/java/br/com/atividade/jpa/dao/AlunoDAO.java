@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.com.atividade.jpa.entity.Aluno;
+import br.com.atividade.jpa.interfaces.DAO;
 
 public class AlunoDAO implements DAO<Aluno>{
 

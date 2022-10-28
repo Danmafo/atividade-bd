@@ -1,4 +1,4 @@
-package br.com.atividade.jpa.dao;
+package br.com.atividade.jpa.interfaces;
 
 import java.util.List;
 

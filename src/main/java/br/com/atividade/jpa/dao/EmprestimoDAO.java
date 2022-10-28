@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import br.com.atividade.jpa.entity.Emprestimo;
+import br.com.atividade.jpa.interfaces.DAO;
 
 public class EmprestimoDAO implements DAO<Emprestimo> {
 
@@ -41,5 +42,5 @@ public class EmprestimoDAO implements DAO<Emprestimo> {
     public void delete(Emprestimo t) {
         this.em.remove(t);    
     }
-    
+
 }

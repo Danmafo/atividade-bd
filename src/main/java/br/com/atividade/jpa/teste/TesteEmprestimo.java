@@ -1,15 +1,14 @@
 package br.com.atividade.jpa.teste;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import br.com.atividade.jpa.dao.AlunoDAO;
 import br.com.atividade.jpa.dao.EmprestimoDAO;
 import br.com.atividade.jpa.dao.PublicacaoDAO;
-import br.com.atividade.jpa.entity.Aluno;
 import br.com.atividade.jpa.entity.Emprestimo;
-import br.com.atividade.jpa.entity.Publicacao;
 import br.com.atividade.jpa.util.CalculaDataDevolucao;
 import br.com.atividade.jpa.util.JPAUtil;
 
@@ -22,61 +21,57 @@ public class TesteEmprestimo {
         AlunoDAO alunoDAO = new AlunoDAO(em);
         PublicacaoDAO publicacaoDAO = new PublicacaoDAO(em);
 
-        cadastros();
+        Emprestimo emp;
 
-        //TODO - Realizar mais testes
-
-        Emprestimo emp = emprestimoDAO.findById(1l, 1l);
+        System.out.println("\n==== BUSCANDO POR ID ====\n");
+        System.out.println("Matricula do Aluno: 1, Código da Publicação: 1");
+        emp = emprestimoDAO.findById(1l, 1l);
         System.out.println("Nome = " + emp.getMatriculaAluno().getNome());
 
-        Aluno al = alunoDAO.findById(1);
-        System.out.println("Aluno com Id 1 = " + al.getNome());
-    }
+        System.out.println("Matricula do Aluno: 1, Código da Publicação: 2");
+        emp = emprestimoDAO.findById(1l, 2l);
+        System.out.println("Nome = " + emp.getMatriculaAluno().getNome());
 
-    private static void cadastros() {
-        Aluno aluno1 = new Aluno("Abelardo Santos");
-        Aluno aluno2 = new Aluno("Santiago Bernabeu");
-        Aluno aluno3 = new Aluno("Tainara Cristina");
-        Aluno aluno4 = new Aluno("Túlio Cristóvão");
+        System.out.println("Matricula do Aluno: 3, Código da Publicação: 4");
+        emp = emprestimoDAO.findById(3l, 4l);
+        System.out.println("Nome = " + emp.getMatriculaAluno().getNome());
 
-        Publicacao publicacao1 = new Publicacao("Contos para Família", 2020, "Joaquim Freitas", "Revista");
-        Publicacao publicacao2 = new Publicacao("História de Belém", 2005, "Sérgio Mesquita", "Artigo");
-        Publicacao publicacao3 = new Publicacao("Cálculo Diferencial", 1995, "Leopoldo Silva", "Livro");
-        Publicacao publicacao4 = new Publicacao("Mude seu Mindset", 2021, "Amanda Vitória", "Livro");
+        System.out.println("Matricula do Aluno: 4, Código da Publicação: 3");
+        emp = emprestimoDAO.findById(4l, 3l);
+        System.out.println("Nome = " + emp.getMatriculaAluno().getNome());
 
-        EntityManager em = JPAUtil.getEntityManager();
+        System.out.println("\n==== FIND ALL ANTES DAS ALTERAÇÕES ====\n");
+        List<Emprestimo> emprestimos = emprestimoDAO.findAll();
+        for (Emprestimo emprestimo : emprestimos) {
+            System.out.println(emprestimo + "\n");
+        }
 
-        AlunoDAO alunoDAO = new AlunoDAO(em);
-        PublicacaoDAO publicacaoDAO = new PublicacaoDAO(em);
-        EmprestimoDAO emprestimoDAO = new EmprestimoDAO(em);
+        System.out.println("\n==== INSERINDO, ALTERANDO E REMOVENDO ====\n");
 
-        Emprestimo emprestimo1 = new Emprestimo(aluno1,
-                publicacao1,
-                new Date(),
-                CalculaDataDevolucao.calculaDataDevolucao(new Date()));
-
-        Emprestimo emprestimo2 = new Emprestimo(aluno2,
-                publicacao2,
-                new Date(),
-                CalculaDataDevolucao.calculaDataDevolucao(new Date()));
+        Emprestimo emp2 = new Emprestimo(alunoDAO.findById(2l), publicacaoDAO.findById(5l), new Date(), CalculaDataDevolucao.calcular(new Date()));
+        Emprestimo emp3 = new Emprestimo(alunoDAO.findById(1l), publicacaoDAO.findById(1l), new Date(), CalculaDataDevolucao.calcular(new Date()));
 
         em.getTransaction().begin();
+		
+		emprestimoDAO.insert(emp2);
+        emprestimoDAO.update(emp3);
+        emprestimoDAO.delete(emp);
+		
+		em.getTransaction().commit();
 
-        alunoDAO.insert(aluno1);
-        alunoDAO.insert(aluno2);
-        alunoDAO.insert(aluno3);
-        alunoDAO.insert(aluno4);
+        System.out.println("\n==== FIND ALL DEPOIS DAS ALTERAÇÕES ====\n");
+        List<Emprestimo> emprestimos2 = emprestimoDAO.findAll();
+        for (Emprestimo emprestimo : emprestimos2) {
+            System.out.println(emprestimo + "\n");
+        }
 
-        publicacaoDAO.insert(publicacao1);
-        publicacaoDAO.insert(publicacao2);
-        publicacaoDAO.insert(publicacao3);
-        publicacaoDAO.insert(publicacao4);
+		em.close();
 
-        emprestimoDAO.insert(emprestimo1);
-        emprestimoDAO.insert(emprestimo2);
+        // Aluno aluno = alunoDAO.findById(1l);
+        // System.out.println(aluno.getNome());
 
-        em.getTransaction().commit();
-        em.close();
+        // Publicacao publicacao = publicacaoDAO.findById(1l);
+        // System.out.println(publicacao.getTitulo());
     }
 
 }
