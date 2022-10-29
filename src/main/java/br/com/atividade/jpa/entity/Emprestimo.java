@@ -77,8 +77,8 @@ public class Emprestimo {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return "Emprestimo\nmatriculaAluno = " + matriculaAluno.getMatriculaAluno() + ",\ncodigoPub = " + codigoPub.getCodigoPub() + ",\ndataEmprestimo = "
-                + sdf.format(dataEmprestimo) + ",\ndataDevolucao = " + sdf.format(dataDevolucao);
+        return "Emprestimo\nmatriculaAluno = " + matriculaAluno.getMatriculaAluno() + "\ncodigoPub = " + codigoPub.getCodigoPub() + "\ndataEmprestimo = "
+                + sdf.format(dataEmprestimo) + "\ndataDevolucao = " + sdf.format(dataDevolucao);
     }
     
 }
