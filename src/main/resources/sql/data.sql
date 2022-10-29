@@ -18,7 +18,9 @@ create table emprestimo (
     matricula_aluno bigint not null,
     data_devolucao date,
     data_emprestimo date,
-    primary key (cod_publicacao, matricula_aluno)
+    primary key (cod_publicacao, matricula_aluno),
+    foreign key (cod_publicacao) references publicacao(cod_publicacao),
+    foreign key (matricula_aluno) references aluno(matricula)
 );
 
 insert into aluno(matricula, nome) values(1, 'Abelardo Santos');
