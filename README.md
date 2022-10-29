@@ -1,4 +1,4 @@
-# atividades-sd
+# atividade-bd
 Atividades p/ 1° Avaliação do Aplicação de Banco de Dados
 
 <br>
